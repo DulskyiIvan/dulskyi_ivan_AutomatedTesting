@@ -10,7 +10,7 @@ public class ProductDetailsPage {
     private final By addToCartButton = By.id("add-to-cart");
     private final By removeFromCartButton = By.id("remove");
     private final By shoppingCartLink = By.cssSelector("a[data-test='shopping-cart-link']");
-    private final By backToProducts = By.cssSelector("div[data-test='back-to-products']");
+    private final By backToProducts = By.cssSelector("button[data-test='back-to-products']");
 
 
     public ProductDetailsPage(WebDriver driver) {

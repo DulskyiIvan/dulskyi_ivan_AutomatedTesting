@@ -1,6 +1,7 @@
 package com.dulskyiivan.project;
 
 import com.dulskyiivan.project.pages.LoginPage;
+import com.dulskyiivan.project.pages.ProductDetailsPage;
 import com.dulskyiivan.project.pages.ProductItemComponent;
 import com.dulskyiivan.project.pages.ProductsPage;
 import org.junit.jupiter.api.Assertions;
@@ -36,6 +37,20 @@ public class ProductCatalogTests extends BaseTest {
         Assertions.assertTrue(firstProductPrice >= doubleProductPrice, "The price of the first product " +
                 " must be greater than or equal to the price of the second");
         Assertions.assertEquals(49.99, firstProductPrice, "The most expensive product costs 49.99");
+    }
+
+    @Test
+    @DisplayName("Cart state persists on navigation back to products list")
+    public void test_cart_state_persists_on_navigation() {
+        String tShirtName = "Sauce Labs Bolt T-Shirt";
+
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.getProductByName(tShirtName).openDetails();
+        ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
+        productDetailsPage.addToCart();
+
+        Assertions.assertEquals("1", productDetailsPage.backToProducts().getShoppingCartBadgeText(),
+                "The cart counter should retain the value '1' after returning to the catalog");
     }
 
 }
