@@ -2,6 +2,7 @@ package com.dulskyiivan.project;
 
 import com.dulskyiivan.project.pages.LoginPage;
 import com.dulskyiivan.project.pages.ProductDetailsPage;
+import com.dulskyiivan.project.pages.ProductItemComponent;
 import com.dulskyiivan.project.pages.ProductsPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +42,26 @@ public class CartTests extends BaseTest {
 
         Assertions.assertEquals(2, items.size());
         Assertions.assertTrue(items.contains(tShirtName) && items.contains(backpackName));
+
+    }
+
+    @Test
+    @DisplayName("Successful add and remove product on product page")
+    public void test_add_and_remove_product_on_product_page() {
+        String backpackName = "Sauce Labs Backpack";
+        ProductsPage productsPage = new ProductsPage(driver);
+
+        ProductItemComponent product = productsPage.getProductByName(backpackName);
+        product.addToCart();
+
+        Assertions.assertTrue(product.removeFromCartButtonIsDisplayed());
+        Assertions.assertEquals("1", productsPage.getShoppingCartBadgeText());
+
+        product.removeFromCart();
+
+        Assertions.assertTrue(product.addToCartButtonIsDisplayed());
+        Assertions.assertFalse(productsPage.isShoppingCartBadgeDisplayed());
+
 
     }
 
