@@ -1,9 +1,6 @@
 package com.dulskyiivan.project;
 
-import com.dulskyiivan.project.pages.LoginPage;
-import com.dulskyiivan.project.pages.ProductDetailsPage;
-import com.dulskyiivan.project.pages.ProductItemComponent;
-import com.dulskyiivan.project.pages.ProductsPage;
+import com.dulskyiivan.project.pages.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,6 +58,23 @@ public class CartTests extends BaseTest {
 
         Assertions.assertTrue(product.addToCartButtonIsDisplayed());
         Assertions.assertFalse(productsPage.isShoppingCartBadgeDisplayed());
+
+
+    }
+
+    @Test
+    @DisplayName("Successful remove product directly from cart page")
+    public void test_remove_product_directly_from_cart_page() {
+        String backpackName = "Sauce Labs Backpack";
+
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.getProductByName(backpackName).addToCart();
+
+
+        Assertions.assertTrue(productsPage.goToCart()
+                        .removeFromCart()
+                        .isCartEmpty()
+                , "The cart must be empty after the product is released.");
 
 
     }
