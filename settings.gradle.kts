@@ -1,0 +1,1 @@
+rootProject.name = "dulskyi_ivan_AutomatedTesting"
