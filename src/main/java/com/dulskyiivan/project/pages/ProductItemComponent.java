@@ -9,6 +9,7 @@ public class ProductItemComponent {
     private final By itemTitleLink = By.className("inventory_item_name");
     private final By addToCartButton = By.xpath(".//button[contains(@id, 'add-to-cart')]");
     private final By removeFromCartButton = By.xpath(".//button[contains(@id, 'remove')]");
+    private final By priceText = By.className("inventory_item_price");
 
 
     public ProductItemComponent(WebElement element) {
@@ -37,6 +38,10 @@ public class ProductItemComponent {
 
     public boolean addToCartButtonIsDisplayed() {
         return element.findElement(addToCartButton).isDisplayed();
+    }
+
+    public double getPrice() {
+        return Double.parseDouble(element.findElement(priceText).getText().replace("$", ""));
     }
 
 

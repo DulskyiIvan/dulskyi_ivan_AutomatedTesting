@@ -3,6 +3,7 @@ package com.dulskyiivan.project.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.time.Duration;
 import java.util.List;
@@ -14,6 +15,7 @@ public class ProductsPage {
     private final By productItemsLocator = By.className("inventory_item");
     private final By shoppingCartLink = By.className("shopping_cart_link");
     private final By shoppingCartBadge = By.className("shopping_cart_badge");
+    public final By selectSortContainer = By.className("product_sort_container");
     private final BurgerMenuComponent burgerMenuComponent;
     private final WebDriver driver;
 
@@ -37,7 +39,7 @@ public class ProductsPage {
                 .orElse(null);
     }
 
-    private List<ProductItemComponent> getProductItems() {
+    public List<ProductItemComponent> getProductItems() {
         List<WebElement> elements = driver.findElements(productItemsLocator);
         return elements.stream()
                 .map(ProductItemComponent::new)
@@ -60,6 +62,12 @@ public class ProductsPage {
 
     public String getShoppingCartBadgeText() {
         return driver.findElement(shoppingCartBadge).getText();
+    }
+
+    public ProductsPage sortProductsBy(String option) {
+        Select select = new Select(driver.findElement(selectSortContainer));
+        select.selectByVisibleText(option);
+        return this;
     }
 
 
