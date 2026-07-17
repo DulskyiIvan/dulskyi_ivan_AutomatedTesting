@@ -32,4 +32,23 @@ public class ProductTest {
 
     }
 
+    @Test
+    public void verifySearchProducts() {
+        ProductsResponse productsResponse = RestAssured.given()
+                    .filter(new AllureRestAssured())
+                    .baseUri("https://automationexercise.com/")
+                    .param("search_product","top")
+                    .accept(ContentType.JSON)
+                .when()
+                    .post("/api/searchProduct")
+                .then()
+                    .statusCode(200)
+                    .extract()
+                    .as(ProductsResponse.class, ObjectMapperType.JACKSON_2);
+
+        Product product = productsResponse.getProducts().getFirst();
+        Assertions.assertEquals("Blue Top", product.getName());
+        Assertions.assertEquals(200, productsResponse.getResponseCode());
+    }
+
 }
