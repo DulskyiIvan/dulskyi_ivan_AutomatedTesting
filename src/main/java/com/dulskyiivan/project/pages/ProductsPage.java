@@ -1,15 +1,15 @@
 package com.dulskyiivan.project.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductsPage {
+public class ProductsPage extends BasePage {
 
     private static final By productContainer = By.id("inventory_container");
     private final By productItemsLocator = By.className("inventory_item");
@@ -17,10 +17,9 @@ public class ProductsPage {
     private final By shoppingCartBadge = By.className("shopping_cart_badge");
     public final By selectSortContainer = By.className("product_sort_container");
     private final BurgerMenuComponent burgerMenuComponent;
-    private final WebDriver driver;
 
     public ProductsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         burgerMenuComponent = new BurgerMenuComponent(driver);
     }
 
@@ -29,7 +28,7 @@ public class ProductsPage {
     }
 
     public boolean isProductContainerDisplayed() {
-        return driver.findElement(productContainer).isDisplayed();
+        return isDisplayed(productContainer);
     }
 
     public ProductItemComponent getProductByName(String productName) {
@@ -40,32 +39,34 @@ public class ProductsPage {
     }
 
     public List<ProductItemComponent> getProductItems() {
-        List<WebElement> elements = driver.findElements(productItemsLocator);
+        List<WebElement> elements = findElements(productItemsLocator);
         return elements.stream()
                 .map(ProductItemComponent::new)
                 .collect(Collectors.toList());
     }
 
+    @Step("Go to cart")
     public CartPage goToCart() {
-        driver.findElement(shoppingCartLink).click();
+        click(shoppingCartLink);
         return new CartPage(driver);
     }
 
     public boolean isShoppingCartBadgeDisplayed() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        setTimeout(0);
 
-        boolean isPresent = !driver.findElements(shoppingCartBadge).isEmpty();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        boolean isPresent = !findElements(shoppingCartBadge).isEmpty();
+        setTimeout(10);
 
         return isPresent;
     }
 
     public String getShoppingCartBadgeText() {
-        return driver.findElement(shoppingCartBadge).getText();
+        return getText(shoppingCartBadge);
     }
 
+    @Step("Sort product by")
     public ProductsPage sortProductsBy(String option) {
-        Select select = new Select(driver.findElement(selectSortContainer));
+        Select select = new Select(find(selectSortContainer));
         select.selectByVisibleText(option);
         return this;
     }

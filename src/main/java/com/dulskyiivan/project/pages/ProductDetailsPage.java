@@ -1,10 +1,10 @@
 package com.dulskyiivan.project.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ProductDetailsPage {
-    private final WebDriver driver;
+public class ProductDetailsPage extends BasePage {
 
     private final By productName = By.cssSelector("div[data-test='inventory-item-name']");
     private final By addToCartButton = By.id("add-to-cart");
@@ -14,27 +14,27 @@ public class ProductDetailsPage {
 
 
     public ProductDetailsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public ProductDetailsPage addToCart() {
-        driver.findElement(addToCartButton).click();
+        click(addToCartButton);
         return this;
     }
 
     public ProductDetailsPage removeFromCart() {
-        driver.findElement(removeFromCartButton).click();
+        click(removeFromCartButton);
         return this;
     }
 
-
+    @Step("Back to products")
     public ProductsPage backToProducts() {
-        driver.findElement(backToProducts).click();
+        click(backToProducts);
         return new ProductsPage(driver);
     }
-
+    @Step("Go to cart")
     public CartPage goToCart() {
-        driver.findElement(shoppingCartLink).click();
+        click(shoppingCartLink);
         return new CartPage(driver);
     }
 

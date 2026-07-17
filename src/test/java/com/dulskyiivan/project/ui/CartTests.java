@@ -1,4 +1,4 @@
-package com.dulskyiivan.project;
+package com.dulskyiivan.project.ui;
 
 import com.dulskyiivan.project.pages.*;
 import org.junit.jupiter.api.Assertions;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
+@DisplayName("Add/remove to cart")
 public class CartTests extends BaseTest {
 
     @BeforeEach

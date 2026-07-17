@@ -1,4 +1,4 @@
-package com.dulskyiivan.project;
+package com.dulskyiivan.project.ui;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

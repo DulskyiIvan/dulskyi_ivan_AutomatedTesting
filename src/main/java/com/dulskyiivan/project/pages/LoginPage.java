@@ -1,48 +1,49 @@
 package com.dulskyiivan.project.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
     private static final By usernameField = By.cssSelector("[data-test='username']");
     private static final By passwordField = By.xpath("//input[@type='password']");
     private static final By loginButton = By.name("login-button");
+    private final By loginContainer = By.cssSelector("div[class='login_container']");
 
     private static final By errorContainer = By.cssSelector("div[class='error-message-container error']");
-    private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
+    @Step("Enter username")
     public void enterUsername(String username) {
-        WebElement element = driver.findElement(usernameField);
-        element.clear();
-        element.sendKeys(username);
+        type(usernameField, username);
     }
 
+    @Step("Enter password")
     public void enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        type(passwordField, password);
     }
 
+    @Step("Click login button ")
     public void clickLoginButton() {
-        driver.findElement(loginButton).click();
+        click(loginButton);
     }
 
     public String getBackgroundColorOfLoginButton() {
-        return driver.findElement(loginButton).getCssValue("background-color");
+        return getBackgroundColor(loginButton);
     }
 
     public String getBackgroundColorOfErrorContainer() {
-        return driver.findElement(errorContainer).getCssValue("background-color");
+        return getBackgroundColor(errorContainer);
     }
 
     public String getTextOfErrorContainer() {
-        return driver.findElement(errorContainer).getText();
+        return getText(errorContainer);
     }
 
     public boolean loginContainerIsDisplayed() {
-        return driver.findElement(By.cssSelector("div[class='login_container']")).isDisplayed();
+        return isDisplayed(loginContainer);
     }
 }

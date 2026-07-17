@@ -1,4 +1,4 @@
-package com.dulskyiivan.project;
+package com.dulskyiivan.project.ui;
 
 import com.dulskyiivan.project.pages.LoginPage;
 import com.dulskyiivan.project.pages.ProductsPage;

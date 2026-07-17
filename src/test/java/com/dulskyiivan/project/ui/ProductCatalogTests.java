@@ -1,4 +1,4 @@
-package com.dulskyiivan.project;
+package com.dulskyiivan.project.ui;
 
 import com.dulskyiivan.project.pages.LoginPage;
 import com.dulskyiivan.project.pages.ProductDetailsPage;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
+@DisplayName("Product catalog tests")
 public class ProductCatalogTests extends BaseTest {
 
 
